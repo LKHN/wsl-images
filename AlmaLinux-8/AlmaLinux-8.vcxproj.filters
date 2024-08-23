@@ -159,12 +159,12 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="AlmaLinuxOS-8.appxmanifest" />
+    <AppxManifest Include="AlmaLinux-8.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AlmaLinuxOS-8_TemporaryKey.pfx" />
+    <None Include="AlmaLinux-8_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
-    <None Include="AlmaLinuxOS-8_StoreKey.pfx" />
+    <None Include="AlmaLinux-8_StoreKey.pfx" />
     <None Include="..\x64\install.tar.gz" />
   </ItemGroup>
   <ItemGroup>

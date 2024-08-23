@@ -11,7 +11,7 @@
     <WindowsTargetPlatformMinVersion>10.0.16299.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <TargetName>almalinux8</TargetName>
-    <ProjectName>AlmaLinuxOS-8</ProjectName>
+    <ProjectName>AlmaLinux-8</ProjectName>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -75,7 +75,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <!--PackageCertificateKeyFile>AlmaLinuxOS-8_TemporaryKey.pfx</PackageCertificateKeyFile -->
+    <!--PackageCertificateKeyFile>AlmaLinux-8_TemporaryKey.pfx</PackageCertificateKeyFile -->
     <!--PackageCertificateThumbprint></PackageCertificateThumbprint-->
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
@@ -95,11 +95,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <AppxManifest Include="AlmaLinuxOS-8.appxmanifest">
+    <AppxManifest Include="AlmaLinux-8.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="AlmaLinuxOS-8_StoreKey.pfx" />
-    <None Include="AlmaLinuxOS-8_TemporaryKey.pfx" />
+    <None Include="AlmaLinux-8_StoreKey.pfx" />
+    <None Include="AlmaLinux-8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x64'">
     <None Include="..\x64\install.tar.gz">
