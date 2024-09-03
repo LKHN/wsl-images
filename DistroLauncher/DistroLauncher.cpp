@@ -5,7 +5,7 @@
 
 #include "stdafx.h"
 
-// Commandline arguments: 
+// Commandline arguments:
 #define ARG_CONFIG              L"config"
 #define ARG_CONFIG_DEFAULT_USER L"--default-user"
 #define ARG_INSTALL             L"install"
@@ -86,7 +86,7 @@ int wmain(int argc, wchar_t const *argv[])
     // Ensure that the Windows Subsystem for Linux optional component is installed.
     DWORD exitCode = 1;
     if (!g_wslApi.WslIsOptionalComponentInstalled()) {
-        Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
+        Helpers::PrintErrorMessage(HRESULT_FROM_WIN32(ERROR_LINUX_SUBSYSTEM_NOT_PRESENT));
         if (arguments.empty()) {
             Helpers::PromptForInput();
         }
@@ -156,8 +156,8 @@ int wmain(int argc, wchar_t const *argv[])
 
     // If an error was encountered, print an error message.
     if (FAILED(hr)) {
-        if (hr == HRESULT_FROM_WIN32(ERROR_LINUX_SUBSYSTEM_NOT_PRESENT)) {
-            Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
+        if (hr == HCS_E_HYPERV_NOT_INSTALLED) {
+            Helpers::PrintMessage(MSG_ENABLE_VIRTUALIZATION);
 
         } else {
             Helpers::PrintErrorMessage(hr);

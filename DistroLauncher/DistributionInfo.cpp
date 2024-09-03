@@ -24,7 +24,7 @@ bool DistributionInfo::CreateUser(std::wstring_view userName)
     }
 
     // Add the user account to any relevant groups.
-    commandLine = L"usermod -aG wheel,adm,cdrom ";
+    commandLine = L"usermod -a -G wheel,adm,cdrom ";
     commandLine += userName;
     hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
     if ((FAILED(hr)) || (exitCode != 0)) {
@@ -33,14 +33,6 @@ bool DistributionInfo::CreateUser(std::wstring_view userName)
         commandLine = L"userdel -r ";
         commandLine += userName;
         g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
-        return false;
-    }
-
-    commandLine = L"printf '";
-    commandLine += userName;
-    commandLine += L" ALL=(ALL) NOPASSWD:ALL\n' > /etc/sudoers.d/default_user";
-    hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
-    if ((FAILED(hr)) || (exitCode != 0)) {
         return false;
     }
 
@@ -79,6 +71,7 @@ ULONG DistributionInfo::QueryUid(std::wstring_view userName)
                     buffer[bytesRead] = ANSI_NULL;
                     try {
                         uid = std::stoul(buffer, nullptr, 10);
+
                     } catch( ... ) { }
                 }
             }
