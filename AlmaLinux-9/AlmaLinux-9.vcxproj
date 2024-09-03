@@ -2,7 +2,7 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <ProjectGuid>{f63472f9-d0a0-412e-aa3d-a4e822970486}</ProjectGuid>
-    <RootNamespace>DistroLauncher_Appx</RootNamespace>
+    <RootNamespace>AlmaLinux-9</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -11,7 +11,7 @@
     <WindowsTargetPlatformMinVersion>10.0.16299.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <TargetName>almalinux9</TargetName>
-    <ProjectName>AlmaLinuxOS-9</ProjectName>
+    <ProjectName>AlmaLinux-9</ProjectName>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -75,7 +75,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <!--PackageCertificateKeyFile>AlmaLinuxOS-8_TemporaryKey.pfx</PackageCertificateKeyFile -->
+    <!--PackageCertificateKeyFile>AlmaLinux-9_TemporaryKey.pfx</PackageCertificateKeyFile -->
     <!--PackageCertificateThumbprint></PackageCertificateThumbprint-->
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
@@ -87,6 +87,7 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA512</AppxPackageSigningTimestampDigestAlgorithm>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <PackageCertificateKeyFile>AlmaLinux-9_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
@@ -95,11 +96,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <AppxManifest Include="AlmaLinuxOS-9.appxmanifest">
+    <AppxManifest Include="AlmaLinux-9.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="AlmaLinuxOS-9_StoreKey.pfx" />
-    <None Include="AlmaLinuxOS-9_TemporaryKey.pfx" />
+    <None Include="AlmaLinux-9_StoreKey.pfx" />
+    <None Include="AlmaLinux-9_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x64'">
     <None Include="..\x64\install.tar.gz">
