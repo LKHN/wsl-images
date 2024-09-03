@@ -16,7 +16,7 @@ namespace DistributionInfo
     const std::wstring Name = L"AlmaLinux-8";
 
     // The title bar for the console window while the distribution is installing.
-    const std::wstring WindowTitle = L"AlmaLinux 8";
+    const std::wstring WindowTitle = L"AlmaLinux OS 8";
 
     // Create and configure a user account.
     bool CreateUser(std::wstring_view userName);
