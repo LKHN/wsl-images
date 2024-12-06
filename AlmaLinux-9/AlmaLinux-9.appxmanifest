@@ -38,7 +38,7 @@
           <uap3:AppExtension Name="com.microsoft.windows.terminal.settings"
                              Id="AlmaLinux-9"
                              DisplayName="AlmaLinux OS 9"
-                             PublicFolder="Terminal">
+                             PublicFolder="Public">
           </uap3:AppExtension>
         </uap3:Extension>
       </Extensions>
