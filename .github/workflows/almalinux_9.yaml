@@ -1,0 +1,29 @@
+name: Build AlmaLinux OS 9 WSL images
+on:
+  workflow_dispatch:
+    inputs:
+      minor_version:
+        description: 'Minor version of AlmaLinux OS 9'
+        default: 5
+        type: number
+      build_number:
+        description: 'Build number of WSL image version'
+        default: 0
+        type: number
+jobs:
+  build_x64:
+    name: Build a x64 WSL image
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build an image
+        run: bash -x rootfs/almalinux_9_x64.sh ${{ inputs.minor_version }} ${{ inputs.build_number }}
+  build_ARM64:
+    name: Build an ARM64 WSL image
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build an image
+        run: bash -x rootfs/almalinux_9_ARM64.sh ${{ inputs.minor_version }} ${{ inputs.build_number }}
