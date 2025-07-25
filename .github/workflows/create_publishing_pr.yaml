@@ -1,0 +1,18 @@
+name: Create publishing Pull Request
+on:
+  workflow_dispatch:
+jobs:
+  create_pr:
+    name: Create publishing PR
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Generate distribution manifest
+        run: uv run tools/distribution_manifest_updater.py
+      - name: Download upstream distribution manifest
+        run: curl -LO https://raw.githubusercontent.com/microsoft/WSL/refs/heads/master/distributions/DistributionInfo.json
+      - name: Compare distribution manifests
+        run: diff DistributionInfo.json DistributionInfo_generated.json
