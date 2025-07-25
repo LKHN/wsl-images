@@ -1,0 +1,64 @@
+name: Create publishing Pull Request
+on:
+  workflow_dispatch:
+jobs:
+  create_pr:
+    name: Create publishing PR
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Generate distribution manifest
+        run: uv run tools/distribution_manifest_updater.py
+      - name: Download upstream distribution manifest
+        run: curl -LO https://raw.githubusercontent.com/microsoft/WSL/refs/heads/master/distributions/DistributionInfo.json
+      - name: Compare distribution manifests
+        id: diff_exit_code
+        run: |
+          trap 'echo "diff_exit_code=$?" >> "$GITHUB_OUTPUT"' EXIT
+          git diff --no-index DistributionInfo.json DistributionInfo_generated.json
+        continue-on-error: true
+      - name: Checkout WSL repository
+        if: ${{ steps.diff_exit_code.outputs.diff_exit_code == '1' }}
+        uses: actions/checkout@v4
+        with:
+          repository: LKHN/WSL
+          path: almalinux_wsl
+          token: ${{ secrets.GH_LKHN_WSL_PAT }}
+      - name: Cofigure git
+        if: ${{ steps.diff_exit_code.outputs.diff_exit_code == '1' }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        working-directory: ./almalinux_wsl
+      - name: Create a new branch
+        if: ${{ steps.diff_exit_code.outputs.diff_exit_code == '1' }}
+        run: |
+          git remote add microsoft https://github.com/microsoft/WSL.git
+          git remote update
+          git push -d origin almalinux_update
+          git checkout -b almalinux_update microsoft/master
+        working-directory: ./almalinux_wsl
+      - name: Copy distribution manifest
+        if: ${{ steps.diff_exit_code.outputs.diff_exit_code == '1' }}
+        run: cp -v DistributionInfo_generated.json almalinux_wsl/distributions/DistributionInfo.json
+      - name: Commit changes
+        if: ${{ steps.diff_exit_code.outputs.diff_exit_code == '1' }}
+        run: |
+          git add ./distributions/DistributionInfo.json
+          git commit -m 'chore(distributions): update almalinux'
+        working-directory: ./almalinux_wsl
+      - name: Git push commit
+        if: ${{ steps.diff_exit_code.outputs.diff_exit_code == '1' }}
+        run: |
+          git push -f origin almalinux_update
+        working-directory: ./almalinux_wsl
+      - name: Create a PR
+        if: ${{ steps.diff_exit_code.outputs.diff_exit_code == '1' }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_LKHN_WSL_PAT }}
+        run: |
+          gh pr create --repo LKHN/WSL --fill-first
+        working-directory: ./almalinux_wsl
